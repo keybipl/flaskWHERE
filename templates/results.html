@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{#{% for gmina in results %}#}
+{#{{ gmina.powiat }}#}
+{#{{ gmina.gmina }}#}
+{#{{ gmina.wojewodztwo }}#}
+{#{% endfor %}#}
+
+
+
+                {% for k,v in result.items() %}
+
+                    <br/>
+          <b>Powiat {{ k }} w gminach:</b><br/>
+
+                     {% for i in v %}
+                         {{ i }}
+
+{% endfor %}
+{% endfor %}
+
+</body>
+</html>

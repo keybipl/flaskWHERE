@@ -3,6 +3,7 @@ import sqlite3
 from collections import defaultdict
 import requests
 
+
 app = Flask(__name__)
 
 def connect_db():

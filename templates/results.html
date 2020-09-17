@@ -6,13 +6,161 @@
 </head>
 <body>
 
-{#{% for gmina in results %}#}
-{#{{ gmina.powiat }}#}
-{#{{ gmina.gmina }}#}
-{#{{ gmina.wojewodztwo }}#}
-{#{% endfor %}#}
+        <p class="text-danger" style="text-align: center">Poniżej lokalizacje spełniające kryteria ilościowe
+            przy podanych parametrach oraz minimalne nakłady w poszczególnych gminach przy podanych parametrach:<br/>
+        </p>
 
-{{ rd }}
+        <div class="container" align="center">
+            <p>
+            <table style="width: 35%" >
+                <tr>
+                <td style="text-align: left">
+                    Koszty kwalifikowane:
+                </td>
+                <td style="text-align: right">
+                    {{  value }} {{ currency }}
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: left">
+                    Wielkość przedsiębiorstwa
+                </td>
+                <td style="text-align: right">
+                    {{ size }}
+                </td>
+            </tr>
+            <tr>
+               <td style="text-align: left">
+                    Działalność B+R i/lub BPO
+                </td>
+                <td style="text-align: right">
+                    {% if rd == 'option1' %}
+                    TAK
+                    {% else %}
+                    NIE
+                    {% endif %}
+                </td>
+            </tr>
+            </table>
+            </p>
+        </div>
+<br/>
+
+
+
+
+<div class="container">
+  <div class="row">
+      <!-- KOLUMNA 1 -->
+    <div class="col-sm">
+       <h2 style="text-align: center">Lubuskie</h2>
+        {% for k,v in result.items() %}<br/>
+          <b>Powiat {{ k }} w gminach:</b><br/>
+<br/>
+<table class="table" >
+                        <tr>
+                            <th style="width: 40%" scope="col">Gmina</th>
+                            <th style="width: 30%; text-align: center"scope="col">PLN</th>
+                        </tr>
+</table>
+
+  {% for i in v %}
+  <table class="table">
+      <tr>
+{#      <td style="width:40%; text-align: left">{{ i }}</td>#}
+{#        <td style="width:30%; text-align: center" >{{ '{:,}'.format(dicn[i]).replace(',', ' ') }} zł</td>#}
+          <td style="width:40%; text-align: left">{{ i }}</td>
+        <td style="width:30%; text-align: center" >{{ '{:,}'.format(lub[i]).replace(',', ' ') }} zł</td>
+{#        <td style="width: 30%; text-align: center" >#}
+{#            {% set test = dicn[i]/cena | float %}#}
+{#          {% set test2 = (test | string) [:-2] %} {{ '{0:,}'.format(test2|int).replace(',', ' ') }} &euro;#}
+{##}
+{#    </td>#}
+    </tr>
+</table>
+ {% endfor %}
+            <br/><br/>
+          {% endfor %}
+
+
+
+    </div>
+      <!-- KOLUMNA 2 -->
+      <div class="col-sm">
+       <h2 style="text-align: center">Wielkopolskie</h2>
+        {% for k,v in resultw.items() %}<br/>
+          <b>Powiat {{ k }} w gminach:</b><br/>
+<br/>
+<table class="table" >
+                        <tr>
+                            <th style="width: 40%" scope="col">Gmina</th>
+                            <th style="width: 30%; text-align: center"scope="col">PLN</th>
+                        </tr>
+</table>
+
+  {% for i in v %}
+  <table class="table">
+      <tr>
+{#      <td style="width:40%; text-align: left">{{ i }}</td>#}
+{#        <td style="width:30%; text-align: center" >{{ '{:,}'.format(dicn[i]).replace(',', ' ') }} zł</td>#}
+          <td style="width:40%; text-align: left">{{ i }}</td>
+        <td style="width:30%; text-align: center" >{{ '{:,}'.format(wlkp[i]).replace(',', ' ') }} zł</td>
+{#        <td style="width: 30%; text-align: center" >#}
+{#            {% set test = dicn[i]/cena | float %}#}
+{#          {% set test2 = (test | string) [:-2] %} {{ '{0:,}'.format(test2|int).replace(',', ' ') }} &euro;#}
+{##}
+{#    </td>#}
+    </tr>
+</table>
+ {% endfor %}
+            <br/><br/>
+          {% endfor %}
+
+
+
+    </div>
+      <!-- KOLUMNA 3 -->
+     <div class="col-sm">
+       <h2 style="text-align: center">Zachodniopomorskie</h2>
+        {% for k,v in resultz.items() %}<br/>
+          <b>Powiat {{ k }} w gminach:</b><br/>
+<br/>
+<table class="table" >
+                        <tr>
+                            <th style="width: 40%" scope="col">Gmina</th>
+                            <th style="width: 30%; text-align: center"scope="col">PLN</th>
+                        </tr>
+</table>
+
+  {% for i in v %}
+  <table class="table">
+      <tr>
+{#      <td style="width:40%; text-align: left">{{ i }}</td>#}
+{#        <td style="width:30%; text-align: center" >{{ '{:,}'.format(dicn[i]).replace(',', ' ') }} zł</td>#}
+          <td style="width:40%; text-align: left">{{ i }}</td>
+        <td style="width:30%; text-align: center" >{{ '{:,}'.format(zach[i]).replace(',', ' ') }} zł</td>
+{#        <td style="width: 30%; text-align: center" >#}
+{#            {% set test = dicn[i]/cena | float %}#}
+{#          {% set test2 = (test | string) [:-2] %} {{ '{0:,}'.format(test2|int).replace(',', ' ') }} &euro;#}
+{##}
+{#    </td>#}
+    </tr>
+</table>
+ {% endfor %}
+            <br/><br/>
+          {% endfor %}
+
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
 
                 {% for k,v in result.items() %}
 

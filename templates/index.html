@@ -132,84 +132,18 @@
     </div>
   </div>
 </div>
+<hr />
+         <p style="text-align: center"> <button type="submit" style="text-align: center"
+                                                class="btn btn-success btn-lg">
+             Pokaż lokalizacje</button>
+   </p>
 
-              <button type="submit" class="btn btn-primary">Policz</button>
-      </form>
+                </form>
+<hr />
+{% if request.method == 'POST' %}
+{% include 'results.html' %}
+{% endif %}
 
-
-
-<div class="container">
-    <div class="collapse" id="collapseExample">
-  <div class="card card-body">
-    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
-      keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-  </div>
-</div>
-
-        <div class="collapse" id="collapseExample2">
-  <div class="card card-body">
-    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
-      keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-  </div>
-</div>
-
-            <div class="collapse" id="collapseExample3">
-  <div class="card card-body">
-    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
-      keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-  </div>
-</div>
-
-                <div class="collapse" id="collapseExample4">
-  <div class="card card-body">
-    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
-      keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-  </div>
-</div>
-
-</div>
-
-
-
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-  <label class="form-check-label" for="exampleRadios1">
-    Default radio
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-  <label class="form-check-label" for="exampleRadios2">
-    Second default radio
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
-  <label class="form-check-label" for="exampleRadios3">
-    Disabled radio
-  </label>
-</div>
-
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-  <label class="form-check-label" for="inlineRadio1">TAK</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-  <label class="form-check-label" for="inlineRadio2">NIE</label>
-</div>
-
-
-{#                {% for k,v in result.items() %}#}
-{##}
-{#                    <br/>#}
-{#          <b>Powiat {{ k }} w gminach:</b><br/>#}
-{##}
-{#                     {% for i in v %}#}
-{#                         {{ i }}#}
-{##}
-{#{% endfor %}#}
-{#{% endfor %}#}
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

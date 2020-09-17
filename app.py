@@ -44,43 +44,115 @@ class Where:
         self.rd = rd
 
 
-
     def lubuskie(self):
+        if self.rd == 'option1' and self.size != 'mikro':
+            naklady = 'nakladybr'
+        if self.size == 'duży' and self.rd != 'option1':
+            naklady = 'naklady'
+        elif self.size == 'średni' and self.rd != 'option1':
+            naklady = 'nakladys'
+        elif self.size == 'mały':
+            naklady = 'nakladyma'
+        else:
+            naklady = 'nakladym'
         if self.currency == 'EURO':
             self.value *= rate
         db = get_db()
-        cur = db.execute('select * from gminy where naklady =<"{}" and wojewodztwo="{}}"'.format(self.value, 'lubuskie'))
+        cur = db.execute('select * from gminy where {} <= {} and wojewodztwo = "{}"'.format(naklady, self.value, 'lubuskie'))
         results = cur.fetchall()
         lubuskie = {}
         for i in range(len(results)):
             lubuskie[results[i]['gmina']] = results[i]['powiat']
+        # if self.currency == 'EURO':
+        #     self.value /= rate
         return lubuskie
 
+    def wielkopolskie(self):
+        if self.size == 'duży':
+            naklady = 'naklady'
+        elif self.size == 'średni':
+            naklady = 'nakladys'
+        elif self.size == 'mały':
+            naklady = 'nakladma'
+        elif self.rd == 'TAK':
+            naklady = 'nakladybr'
+        else:
+            naklady = 'nakladym'
+        # if self.currency == 'EURO':
+        #     self.value *= rate
+        db = get_db()
+        cur = db.execute('select * from gminy where naklady <= ? and wojewodztwo = ?', [naklady, 'wielkopolskie'])
+        results = cur.fetchall()
+        wielkopolskie = {}
+        for i in range(len(results)):
+            wielkopolskie[results[i]['gmina']] = results[i]['powiat']
+        # if self.currency == 'EURO':
+        #     self.value /= rate
+        return wielkopolskie
+
+    def zachodniopomorskie(self):
+        if self.size == 'duży' and self.rd == 'NIE':
+            naklady = 'naklady'
+        elif self.size == 'średni' and self.rd == 'NIE':
+            naklady = 'nakladys'
+        elif self.size == 'mały':
+            naklady = 'nakladma'
+        elif self.rd == 'TAK' and self.size != 'mikro':
+            naklady = 'nakladybr'
+        else:
+            naklady = 'nakladym'
+        # if self.currency == 'EURO':
+        #     self.value *= rate
+        db = get_db()
+        cur = db.execute('select * from gminy where naklady <= ? and wojewodztwo = ?', [naklady, 'zachodniopomorskie'])
+        results = cur.fetchall()
+        zachodniopomorskie = {}
+        for i in range(len(results)):
+            zachodniopomorskie[results[i]['gmina']] = results[i]['powiat']
+        if self.currency == 'EURO':
+            self.value /= rate
+        return zachodniopomorskie
+
+
 rate = kurs()
+rate = float(round(rate, 2))
 date = data()
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == 'GET':
+        return render_template('index.html')
+    else:
+        currency = request.form['currency']
+        value = float(request.form['value'])
+        value = value * 1000000
+        size = request.form['size']
+        rd = request.form['options']
+        places = Where(currency=currency, value=value, size=size, rd=rd)
 
-    value = 1
-    currency = 1
 
-    if currency == 'EURO':
-        value *= kurs
+        lubuskie = places.lubuskie()
+        wielkopolskie = places.wielkopolskie()
+        zachodniopomorskie = places.zachodniopomorskie()
 
-    db = get_db()
-    cur = db.execute('select * from gminy where naklady < 120000000 and wojewodztwo="lubuskie"')
-    results = cur.fetchall()
+        # dic = {}
+        # for i in range(len(results)):
+        #     dic[results[i]['gmina']] = results[i]['powiat']
 
-    dic = {}
-    for i in range(len(results)):
-        dic[results[i]['gmina']] = results[i]['powiat']
+        result = defaultdict(list)
+        for k, v in sorted(lubuskie.items()):
+            result[v].append(k)
 
-    result = defaultdict(list)
-    for k, v in sorted(dic.items()):
-        result[v].append(k)
+        resultw = defaultdict(list)
+        for k, v in sorted(wielkopolskie.items()):
+            resultw[v].append(k)
 
-    return render_template('index.html', result=result, results=results)
+        resultz = defaultdict(list)
+        for k, v in sorted(zachodniopomorskie.items()):
+            resultz[v].append(k)
+
+        return render_template('results.html', result=result, resultw=resultw, resultz=resultz, rd=rd)
 
 
 if __name__ == '__main__':

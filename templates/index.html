@@ -112,11 +112,11 @@
         <p style="text-align: center"><b>TYLKO</b> działalność B+R i/lub BPO?</p>
 
         <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+  <input class="form-check-input" type="radio" name="options" id="inlineRadio1" value="option1">
   <label class="form-check-label" for="inlineRadio1">TAK</label>
 </div>
 <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+  <input class="form-check-input" type="radio" name="options" id="inlineRadio2" value="option2" checked>
   <label class="form-check-label" for="inlineRadio2">NIE</label>
 </div>
 <br/><br/>
@@ -132,7 +132,11 @@
     </div>
   </div>
 </div>
+
+              <button type="submit" class="btn btn-primary">Policz</button>
       </form>
+
+
 
 <div class="container">
     <div class="collapse" id="collapseExample">
@@ -196,16 +200,16 @@
 </div>
 
 
-                {% for k,v in result.items() %}
-
-                    <br/>
-          <b>Powiat {{ k }} w gminach:</b><br/>
-
-                     {% for i in v %}
-                         {{ i }}
-
-{% endfor %}
-{% endfor %}
+{#                {% for k,v in result.items() %}#}
+{##}
+{#                    <br/>#}
+{#          <b>Powiat {{ k }} w gminach:</b><br/>#}
+{##}
+{#                     {% for i in v %}#}
+{#                         {{ i }}#}
+{##}
+{#{% endfor %}#}
+{#{% endfor %}#}
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
